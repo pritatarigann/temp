@@ -15,9 +15,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from wishlist import views, urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('example_app.urls')),
     path('wishlist/', include('wishlist.urls')),
+    path('xml/', views.show_xml, name='show_xml'),
+    path('json/', views.show_json, name='show_json'),
+    path('xml/<int:id>', views.show_xml_by_id, name='how_xml_by_id'),
+    path('json/<int:id>', views.show_json_by_id, name='show_json_by_id'), 
+
 ]
