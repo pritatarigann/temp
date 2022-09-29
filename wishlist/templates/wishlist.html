@@ -2,8 +2,6 @@
 
 {% block content %}
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
-
 <nav class="navbar navbar-expand-lg bg-light">
     <div class="container-fluid">
         <div class="navbar-header"></div>
@@ -17,36 +15,39 @@
     </div>
 </nav>
 
-<div class="p-3 mb-2 bg-dark text-white">
+<head>
+    <div class="p-3 mb-2 bg-dark text-white">
+        <h1 class="text-center">🌸My Wishlist Page🌸</h1>
+        <br><hr>
+        <p class="text-center">by: <p>
+        <p class="text-center">{{nama}}</p>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    </div>
+</head>
 
-<h1 class="text-center">🌸My Wishlist Page🌸</h1>
-<br><hr>
-<p class="text-center">by: <p>
-<p class="text-center">{{nama}}</p>
-</div>
-<div class="p-3 mb-2 bg-light text-dark"></div>
-<table class="table table-bordered ">
-    <thead class="p-3 mb-2 bg-dark text-white">
-        <tr>
-            <th scope="col" class="align-middle text-center">🎲 Nama Barang 🎲</th>
-            <th scope="col" class="align-middle text-center">💰 Harga Barang 💰</th>
-            <th scope="col" class="align-middle text-center">📝 Deskripsi 📝</th>
-        </tr>
-    </thead>
-    {% comment %} Tambahkan data di bawah baris ini {% endcomment %}
-{% for barang in list_barang %}
-    <tbody>
-        <tr>
-            <th>{{barang.nama_barang}}</th>
-            <th>{{barang.harga_barang}}</th>
-            <th>{{barang.deskripsi}}</th>
-        </tr>
-    </tbody>
-{% endfor %}
-</table>
-<br>
-<h8>Sesi terakhir login: {{ last_login }}</h8>
-<br><br><br>
+<div class="p-3 mb-2 bg-light text-dark">
+    <table class="table table-bordered ">
+        <thead class="p-3 mb-2 bg-dark text-white">
+            <tr>
+                <th scope="col" class="align-middle text-center">🎲 Nama Barang 🎲</th>
+                <th scope="col" class="align-middle text-center">💰 Harga Barang 💰</th>
+                <th scope="col" class="align-middle text-center">📝 Deskripsi 📝</th>
+            </tr>
+        </thead>
+        {% comment %} Tambahkan data di bawah baris ini {% endcomment %}
+    {% for barang in list_barang %}
+        <tbody>
+            <tr>
+                <th>{{barang.nama_barang}}</th>
+                <th>{{barang.harga_barang}}</th>
+                <th>{{barang.deskripsi}}</th>
+            </tr>
+        </tbody>
+    {% endfor %}
+    </table>
+    <br>
+    <h8>Sesi terakhir login: {{ last_login }}</h8>
+    <br><br><br>
 </div>
 
 {% endblock content %}
