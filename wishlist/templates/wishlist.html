@@ -4,13 +4,12 @@
 
 <nav class="navbar navbar-expand-lg bg-light">
     <div class="container-fluid">
-        <div class="navbar-header"></div>
-            <a class="navbar-brand nav justify-content-center" href="#">{{nama}}</a>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav nav justify-content-center">
-                <li class="nav-item">
-                    <button type="button" class="btn btn-outline-primary"><a href="{% url 'wishlist:logout' %}">Logout</a></button>
-                </li>   
+        <a class="navbar-brand nav justify-content-center" href="#">{{nama}}</a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav nav justify-content-center">
+            <li class="nav-item">
+                <button type="button" class="btn btn-outline-primary"><a href="{% url 'wishlist:logout' %}">Logout</a></button>
+            </li>  
         </div>   
     </div>
 </nav>
