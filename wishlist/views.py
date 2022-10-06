@@ -44,6 +44,7 @@ def show_json_by_id(request, id):
 def show_wishlist_ajax(request):
     context = {
     'nama': 'Prita Elisabeth Laura Tarigan',
+    'last_login': request.COOKIES['last_login'],
     }
     return render(request, 'wishlist_ajax.html', context)
 
@@ -56,7 +57,7 @@ def submit_ajax(request):
             deskripsi=request.POST.get('deskripsi'),
         )
         newItem.save()
-    return HttpResponseRedirect(reverse('wishlist:show_wishlist_ajax'));
+    return HttpResponseRedirect(reverse('wishlist:show_wishlist_ajax'))
 
 def register(request):
     form = UserCreationForm()

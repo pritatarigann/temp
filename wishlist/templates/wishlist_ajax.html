@@ -1,5 +1,50 @@
 {% extends 'base.html' %}
 
+{% block meta %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+        get_data();
+        $( "added-data" ).submit(function( event ) {
+            event.preventDefault();
+
+            var actionurl = event.currentTarget.action;
+
+            $.ajax({
+                    url: actionurl,
+                    type: 'post',
+                    dataType: 'json',
+                    data: $("added-data").serialize(),
+                    success: function(data) {
+                        var tr = $("<tr></tr>");
+                        for (const [key, value] of Object.entries(data)) {
+                            var td = $("<td></td>").html(value);
+                            tr.append(td);
+                        }
+                        $("#tabel-wishlist").append(tr);
+                    },
+                    error: function(){
+                        alert("ERROR");
+                    }
+            });
+        });
+    });
+
+    function get_data() {
+        $.get("../json", function(data) {
+            data.forEach(element => {
+                var tr = $("<tr></tr>");
+                for (const [key, value] of Object.entries(element.fields)) {
+                    var td = $("<td></td>").html(value);
+                    tr.append(td);
+                }
+                $("#tabel-wishlist").append(tr);
+            });
+        });
+    }
+</script>
+{% endblock meta %}
+
 {% block content %}
 
 <nav class="navbar navbar-expand-lg bg-light">
@@ -14,6 +59,7 @@
     </div>
 </nav>
 
+
 <head>
     <div class="p-3 mb-2 bg-dark text-white">
         <h1 class="text-center">🌸My Wishlist Page🌸</h1>
@@ -24,7 +70,7 @@
     </div>
 </head>
 
-<div class="text-white vh-100 nyaha">
+<div class="text-white vh-100 item">
     <div class="my-4 card w-25 bg-dark mx-auto">
         <form method="post" action="{% url 'wishlist:submit_ajax' %}" class="d-flex flex-column align-items-center card-body">
             {% csrf_token %}
@@ -44,55 +90,26 @@
             <button class="button" type="submit">Add</button>
         </form>
     </div>
-    <div class="p-3 mb-2 bg-light text-dark">
-        <table class="table table-bordered ">
-            <thead class="p-3 mb-2 bg-dark text-white">
-                <tr>
-                    <th scope="col" class="align-middle text-center">🎲 Nama Barang 🎲</th>
-                    <th scope="col" class="align-middle text-center">💰 Harga Barang 💰</th>
-                    <th scope="col" class="align-middle text-center">📝 Deskripsi 📝</th>
-                </tr>
-            </thead>
-            <tbody class="table-row text-white">
-            </tbody>
-        </table>
-        <!-- <h5>Sesi terakhir login: {{ last_login }}</h5> -->
-    </div>
 </div>
 
-<script>
-    const table = document.querySelector('.table-row');
-    fetch("{% url 'wishlist:show_json' %}")
-        .then(resp => resp.json())
-        .then(data => {
-            data.forEach(item => {
-                let tr = document.createElement('tr')
-                let item_name = document.createElement('td')
-                let item_price = document.createElement('td')
-                let item_description = document.createElement('td')
-                item_name.appendChild(document.createTextNode(item.fields.nama_barang))
-                item_price.appendChild(document.createTextNode(item.fields.harga_barang))
-                item_description.appendChild(document.createTextNode(item.fields.deskripsi))
-                tr.setAttribute('scope', 'row')
-                tr.appendChild(item_name)
-                tr.appendChild(item_price)
-                tr.appendChild(item_description)
-                table.appendChild(tr)
-            })
-        })
-</script>
+<div class="p-3 mb-2 bg-light text-dark">
+<table id="tabel-wishlist" class="table table-bordered ">
+    <thead class="p-3 mb-2 bg-dark text-white">
+        <tr>
+            <th scope="col" class="align-middle text-center">🎲 Nama Barang 🎲</th>
+            <th scope="col" class="align-middle text-center">💰 Harga Barang 💰</th>
+            <th scope="col" class="align-middle text-center">📝 Deskripsi 📝</th>
+        </tr>
+    </thead>
+</table>
+</div>
+
+
+<h7>Sesi terakhir login: {{ last_login }}</h7>
+
 
 
 <style>
-    .nyaha {
-        overflow-x: hidden;
-        height: 100vh;
-        width: 100vw;
-        aspect-ratio: 3/2;
-        background-repeat: no-repeat;
-        background-size: cover;
-        background-image: url('/static/images/wave.svg');
-    }
 
     tr {
         transition: all 0.05s ease;
@@ -106,6 +123,7 @@
 
     th {
         color: #FFF;
+        font-family: "Verdana";
     }
 
     input[type=text], input[type=number]{
@@ -135,7 +153,12 @@
     justify-content: center;
     box-shadow: 3px 1px 10px 0px rgba(0,0,0,0.75);
     }
+    .button:hover {
+        background-color: rgba(148, 20, 120, 0.3);
+        transform: scale(1.01);
+    }
+    p {
+        font-family: "Cinzel";
+    }
 </style>
-
-
 {% endblock content %}
